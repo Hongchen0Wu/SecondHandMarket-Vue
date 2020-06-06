@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="bg">
         <h1>快来加入我们的大家庭吧</h1>
         <h3>让你的闲置物品流动起来</h3>
         <el-card class="login-form-layout">
@@ -49,7 +49,7 @@
                 </el-form-item>
 
                 <el-form-item style="margin-bottom: 60px">
-                    <el-button style="width: 100%" type="danger" round :loading="loading"
+                    <el-button style="width: 50%" type="danger" round :loading="loading"
                                @click.native.prevent="handleLogin">注册
                     </el-button>
                 </el-form-item>
@@ -125,9 +125,9 @@
                         let res_data = response.data
                         console.log(res_data)
                         if (res_data.id == -1) {
-                            alert("用户名已被占用")
+                            alert("用户名已存在！")
                         } else {
-                            alert("注册成功，您的用户id为："+ res_data.id + '\n' + "即将跳转回登录界面，请您重新登录！")
+                            alert("注册成功，id为："+ res_data.id + '\n' + "现在可以使用该账号登录！")
 
                             this.$router.push({
                                 path: "/",
@@ -152,12 +152,20 @@
         left: 0;
         right: 0;
         width: 360px;
-        margin: 140px auto;
+        margin: 200px 1400px;
         border-top: 10px solid #409eff;
     }
 
     .login-title {
         text-align: center;
+    }
+
+    #bg{
+        background: url('~@/assets/loginpic.jpg');
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background-size: 100% 100%;
     }
 
     .login-center-layout {

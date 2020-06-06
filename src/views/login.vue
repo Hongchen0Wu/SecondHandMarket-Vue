@@ -2,7 +2,7 @@
 
 
 
-  <div>
+  <div id="bg">
     <h1>校园二手交易平台</h1>
     <el-card class="login-form-layout">
       <el-form autocomplete="on" :model="loginForm" ref="loginForm" label-position="left">
@@ -29,12 +29,12 @@
           </el-input>
         </el-form-item>
         <el-form-item style="margin-bottom: 20px">
-          <el-button style="width: 100%" type="primary" :loading="loading" @click.native.prevent="handleLogin">
+          <el-button style="width: 50%" type="primary" :loading="loading" @click.native.prevent="handleLogin">
             用户登录
           </el-button>
         </el-form-item>
         <el-form-item style="margin-bottom: 60px">
-          <el-button style="width: 100%" type="success" :loading="loading" @click.native.prevent="handleAdminLogin">
+          <el-button style="width: 50%" type="success" :loading="loading" @click.native.prevent="handleAdminLogin">
             管理员登录
           </el-button>
         </el-form-item>
@@ -145,11 +145,10 @@
         var self = this;
 
         var sendData = {};
-        // var Husername = this.username;
-        // //var Hpassword = this.password;
+
         sendData.username = this.loginForm.username
         sendData.password = this.loginForm.password
-        // sendData.names=Husername
+
         var sendJson = JSON.stringify(sendData);
 
         axios({
@@ -162,8 +161,7 @@
             'Content-Type': 'application/json;charset=UTF-8'
           }
         }).then(response => {
-          //  var jsonData = JSON.stringify(response.data, null, 4);
-          //  this.result = jsonData;
+
           console.log(response)
           let err_message = response.data.err_message;
           console.log(err_message)
@@ -174,7 +172,7 @@
 
           //未出现错误信息
           if (typeof (err_message) == "undefined") {
-            alert(response.data.telephonenum)
+            //alert(response.data.telephonenum)
             this.$router.push({
               path: "/main",
               query: {
@@ -184,44 +182,9 @@
           }
 
         }).catch(() => {
-          alert("errer")
+          alert("错误")
         })
-        // var _this = this
-        //     axios.post('http://localhost:9090/book/findallbook').then(function (response) {
-        //       console.log(response)
-        //       _this.books=response.data
-        //       // console.log(response)
-        //     })
-        // this.$router.push( "/success")
-        //   this.$refs.loginForm.validate(valid => {
-        //     if (valid) {
-        //       this.loading = true;
-        //       this.$store
-        //         .dispatch("Login", this.loginForm)
-        //         .then(response => {
-        //           this.loading = false;
-        //           let code = response.data.code;
-        //           if (code == 200) {
-        //             this.$router.push({
-        //               path: "/success",
-        //               query: { data: response.data.data }
-        //             });
-        //           } else {
-        //             this.$router.push({
-        //               path: "/error",
-        //               query: { message: response.data.message }
-        //             });
-        //           }
-        //         })
-        //         .catch(() => {
-        //           this.loading = false;
-        //         });
-        //     } else {
-        //       // eslint-disable-next-line no-console
-        //       console.log("参数验证不合法！");
-        //       return false;
-        //     }
-        //   });
+
       }
     }
   };
@@ -233,7 +196,7 @@
     left: 0;
     right: 0;
     width: 360px;
-    margin: 140px auto;
+    margin: 260px 1400px;
     border-top: 10px solid #409eff;
   }
 
@@ -241,12 +204,20 @@
     text-align: center;
   }
 
+  #bg{
+    background: url('~@/assets/loginpic.jpg');
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-size: 100% 100%;
+  }
+
   .login-center-layout {
-    background: #409eff;
+    background: orange;
     width: auto;
     height: auto;
     max-width: 100%;
     max-height: 100%;
-    margin-top: 200px;
+    margin-top: 2px;
   }
 </style>

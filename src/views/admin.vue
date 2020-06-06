@@ -1,17 +1,9 @@
 <template>
-    <div>
+    <div id="bg">
         <h1>请认真审核每件商品！</h1>
 
 
-    <el-container style="height: 500px; border: 1px solid #eee">
-        <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-            <el-menu>
-                <el-submenu index="1">
-                    <template slot="title"><i class="el-icon-message"></i>待审核商品</template>
 
-                </el-submenu>
-            </el-menu>
-        </el-aside>
 
         <el-container>
             <el-header style="text-align: right; font-size: 12px;background-color: orange">
@@ -53,13 +45,13 @@
                     </el-table-column>
                     <el-table-column label="审核状态" :prop="comID">
                         <template slot-scope="scope">
-                            <el-button type="success" @click="changestatus(scope.row)">通过</el-button>
+                            <el-button type="info" icon="el-icon-edit"  @click="changestatus(scope.row)">通过</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
             </el-main>
         </el-container>
-    </el-container>
+
     </div>
 </template>
 <style>
@@ -71,6 +63,14 @@
 
     .el-aside {
         color: #333;
+    }
+
+    #bg{
+        background: url('~@/assets/loginpic.jpg');
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background-size: 100% 100%;
     }
 </style>
 
@@ -155,7 +155,7 @@
 
 
                 })
-                alert("修改成功，即将返回登录页面1")
+                alert("商品审核已通过！")
                 this.$router.push({
                     path: "/"
                 })            }

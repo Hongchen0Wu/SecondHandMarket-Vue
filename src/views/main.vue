@@ -1,31 +1,31 @@
 <template>
-    <div>
-        <h1>一切就在校园二手交易平台！</h1>
+    <div id="bg">
+        <h1>一切尽在校园二手交易平台！</h1>
         <h1>发布你的闲置物品，或者购买你需要的物品</h1>
 
-    <el-container style="height: 500px; border: 1px solid #eee">
-        <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-            <el-menu>
-                <el-submenu index="1">
-                    <template slot="title"><i class="el-icon-message"></i>商品一览</template>
-                </el-submenu>
-                <el-submenu index="2">
-                    <template slot="title"><i class="el-icon-menu"></i>功能选择</template>
-                    <el-menu-item-group>
 
-                        <el-menu-item index="2-1" @click="release_com">发布商品</el-menu-item>
-                    </el-menu-item-group>
-                    <el-menu-item-group>
+        <div class="line"></div>
+        <el-menu
+                :default-active="activeIndex2"
+                class="el-menu-demo"
+                mode="horizontal"
+                @select="handleSelect"
+                background-color="#545c64"
+                text-color="#fff"
+                active-text-color="#ffd04b">
+            <el-menu-item index="1">
+                <template slot="title"><i class="el-icon-shopping-bag-1"></i>所有商品</template>
+            </el-menu-item>
+            <el-submenu index="2">
+                <template slot="title"><i class="el-icon-menu"></i>功能</template>
+                <el-menu-item index="2-1" @click="release_com">发布商品</el-menu-item>
+                <el-menu-item index="2-2" @click="view_my_commodity">历史发布</el-menu-item>
+                <el-menu-item index="2-2" @click="view_my_bought">历史订单</el-menu-item>
+            </el-submenu>
+        </el-menu>
 
-                        <el-menu-item index="2-2" @click="view_my_commodity">发布历史</el-menu-item>
 
-                        <el-menu-item index="2-2" @click="view_my_bought">历史订单</el-menu-item>
 
-                    </el-menu-item-group>
-
-                </el-submenu>
-            </el-menu>
-        </el-aside>
 
         <!-- 查看我的购买对话框 -->
         <el-dialog title="历史订单" :visible.sync="dialogMyBoughtVisible">
@@ -53,7 +53,7 @@
                 <el-table-column label="订单状态">
                     <template slot-scope="scope">
                         <!-- 传入商品id -->
-                        <el-button type="success" @click="check_users_com_status(scope.row.comID)">
+                        <el-button type="primary" @click="check_users_com_status(scope.row.comID)">
                             {{scope.row.comStatus | jugementStatus}}</el-button>
                     </template>
                 </el-table-column>
@@ -94,7 +94,7 @@
                 </el-form-item>
 
                 <el-form-item>
-                    <el-button style="width: 100%" type="primary" @click="submitForm('commodityForm')">确认发布</el-button>
+                    <el-button style="width: 50%" type="primary" @click="submitForm('commodityForm')">确认发布</el-button>
                     <!-- <el-button @click="resetForm('commodityForm')">重置</el-button> -->
                 </el-form-item>
             </el-form>
@@ -153,13 +153,13 @@
                     </el-table-column>
                     <el-table-column label="购买操作">
                         <template slot-scope="scope">
-                            <el-button type="success" @click="buyCommodityDiaOpen(scope.row.comID)">购买</el-button>
+                            <el-button type="warning" @click="buyCommodityDiaOpen(scope.row.comID)">购买</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
             </el-main>
         </el-container>
-    </el-container>
+
     </div>
 </template>
 <style>
@@ -171,6 +171,14 @@
 
     .el-aside {
         color: #333;
+    }
+
+    #bg{
+        background: url('~@/assets/loginpic.jpg');
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background-size: 100% 100%;
     }
 </style>
 
@@ -614,7 +622,7 @@
                             if (length == 0) {
                                 alert("订单失效")
                             } else {
-                                alert("订单创建成功，请在我的订单中查看订单状态！")
+                                alert("购买成功！可以在历史订单中查看已购买的商品")
                                 this.$router.push({
                                     path: "/",
                                 })
@@ -634,7 +642,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //验证通过
-                        alert("您的商品已经发送至管理员，请您耐心等待审核通过！");
+                        alert("商品发布完成，请等待管理员审核！");
                         //序列化json
                         var sendJson = JSON.stringify(this.commodityForm);
                         var senduser = JSON.stringify(this.msg)
@@ -748,7 +756,7 @@
                     return '尚未被购买'
                 }
                 if (status == 'traded') {
-                    return '订单交易中，查看详情'
+                    return '交易已完成'
                 }
             }
         }
